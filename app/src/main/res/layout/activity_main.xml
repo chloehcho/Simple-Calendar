@@ -25,7 +25,19 @@
         android:layout_margin="@dimen/activity_margin"
         android:contentDescription="@string/new_event"
         android:src="@drawable/ic_plus_vector"
-        app:backgroundTint="@color/color_primary"
+        app:backgroundTint="#7EC636"
+        app:rippleColor="@color/pressed_item_foreground" />
+
+    <com.simplemobiletools.commons.views.MyFloatingActionButton
+        android:id="@+id/meeting_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="86dp"
+        android:contentDescription="meeting"
+        android:src="@drawable/ic_clock_vector"
+        app:backgroundTint="#7EC636"
         app:rippleColor="@color/pressed_item_foreground" />
 
     <RelativeLayout
