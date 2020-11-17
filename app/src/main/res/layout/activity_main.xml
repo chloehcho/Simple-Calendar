@@ -40,6 +40,18 @@
         app:backgroundTint="#7EC636"
         app:rippleColor="@color/pressed_item_foreground" />
 
+    <com.simplemobiletools.commons.views.MyFloatingActionButton
+        android:id="@+id/message_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="164dp"
+        android:contentDescription="message"
+        android:src="@drawable/ic_email_vector"
+        app:backgroundTint="#7EC636"
+        app:rippleColor="@color/pressed_item_foreground" />
+
     <RelativeLayout
         android:id="@+id/search_holder"
         android:layout_width="match_parent"
