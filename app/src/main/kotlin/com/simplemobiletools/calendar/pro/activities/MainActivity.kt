@@ -923,22 +923,22 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
-    private fun launchAbout() {
-        val licenses = LICENSE_JODA
-
-        val faqItems = arrayListOf(
-            FAQItem(R.string.faq_1_title_commons, R.string.faq_1_text_commons),
-            FAQItem(R.string.faq_4_title_commons, R.string.faq_4_text_commons),
-            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-            FAQItem(R.string.faq_2_title, R.string.faq_2_text),
-            FAQItem(R.string.faq_3_title, R.string.faq_3_text),
-            FAQItem(R.string.faq_4_title, R.string.faq_4_text),
-            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
-            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons))
-
-        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
-    }
+//    private fun launchAbout() {
+//        val licenses = LICENSE_JODA
+//
+//        val faqItems = arrayListOf(
+//            FAQItem(R.string.faq_1_title_commons, R.string.faq_1_text_commons),
+//            FAQItem(R.string.faq_4_title_commons, R.string.faq_4_text_commons),
+//            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
+//            FAQItem(R.string.faq_2_title, R.string.faq_2_text),
+//            FAQItem(R.string.faq_3_title, R.string.faq_3_text),
+//            FAQItem(R.string.faq_4_title, R.string.faq_4_text),
+//            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
+//            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
+//            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons))
+//
+//        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
+//    }
 
     private fun searchQueryChanged(text: String) {
         mLatestSearchQuery = text
