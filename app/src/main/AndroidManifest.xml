@@ -160,6 +160,10 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.ScheduleActivity"
+            android:label="Schedule Meeting"
+            android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name=".activities.ManageEventTypesActivity"

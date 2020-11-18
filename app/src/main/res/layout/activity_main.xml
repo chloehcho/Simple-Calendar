@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calendar_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -28,25 +29,25 @@
         app:backgroundTint="#7EC636"
         app:rippleColor="@color/pressed_item_foreground" />
 
-    <com.simplemobiletools.commons.views.MyFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/meeting_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="86dp"
+        android:layout_marginBottom="160dp"
         android:contentDescription="meeting"
         android:src="@drawable/ic_clock_vector"
         app:backgroundTint="#7EC636"
         app:rippleColor="@color/pressed_item_foreground" />
 
-    <com.simplemobiletools.commons.views.MyFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/message_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="86dp"
         android:contentDescription="message"
         android:src="@drawable/ic_email_vector"
         app:backgroundTint="#7EC636"
@@ -99,4 +100,5 @@
             app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
 
     </RelativeLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,6 @@
 package com.simplemobiletools.calendar.pro.activities
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -10,48 +9,34 @@ import android.content.pm.ShortcutManager
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
-import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.simplemobiletools.calendar.pro.BuildConfig
 import com.simplemobiletools.calendar.pro.R
 import com.simplemobiletools.calendar.pro.adapters.EventListAdapter
 import com.simplemobiletools.calendar.pro.databases.EventsDatabase
-import com.simplemobiletools.calendar.pro.dialogs.ExportEventsDialog
 import com.simplemobiletools.calendar.pro.dialogs.FilterEventTypesDialog
-import com.simplemobiletools.calendar.pro.dialogs.ImportEventsDialog
-import com.simplemobiletools.calendar.pro.dialogs.SetRemindersDialog
 import com.simplemobiletools.calendar.pro.extensions.*
 import com.simplemobiletools.calendar.pro.fragments.*
 import com.simplemobiletools.calendar.pro.helpers.*
 import com.simplemobiletools.calendar.pro.helpers.Formatter
-import com.simplemobiletools.calendar.pro.helpers.IcsExporter.ExportResult
-import com.simplemobiletools.calendar.pro.helpers.IcsImporter.ImportResult
 import com.simplemobiletools.calendar.pro.jobs.CalDAVUpdateListener
-import com.simplemobiletools.calendar.pro.models.Event
-import com.simplemobiletools.calendar.pro.models.EventType
 import com.simplemobiletools.calendar.pro.models.ListEvent
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
-import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
-import com.simplemobiletools.commons.models.SimpleContact
 import kotlinx.android.synthetic.main.activity_main.*
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -77,10 +62,17 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var mStoredUse24HourFormat = false
     private var mStoredDimPastEvents = true
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+
+        val schedButton = findViewById<FloatingActionButton>(R.id.meeting_fab)
+        schedButton.setOnClickListener{
+            val schedPage = Intent(this, ScheduleActivity::class.java)
+            startActivity(schedPage)
+        }
 
         checkWhatsNewDialog()
         calendar_fab.beVisibleIf(config.storedView != WEEKLY_VIEW)
@@ -119,7 +111,11 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             ConfirmationDialog(this, "", R.string.upgraded_from_free, R.string.ok, 0) {}
             config.wasUpgradedFromFreeShown = true
         }
+
+
     }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -195,16 +191,9 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             R.id.change_view -> showViewDialog()
             R.id.go_to_today -> goToToday()
             R.id.go_to_date -> showGoToDateDialog()
-//            R.id.print -> printView()
             R.id.filter -> showFilterDialog()
             R.id.refresh_caldav_calendars -> refreshCalDAVCalendars(true)
-//            R.id.add_holidays -> addHolidays()
-//            R.id.add_birthdays -> tryAddBirthdays()
-//            R.id.add_anniversaries -> tryAddAnniversaries()
-//            R.id.import_events -> tryImportEvents()
-//            R.id.export_events -> tryExportEvents()
             R.id.settings -> launchSettings()
-//            R.id.about -> launchAbout()
             android.R.id.home -> onBackPressed()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -475,258 +464,6 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         }
     }
 
-//    private fun addHolidays() {
-//        val items = getHolidayRadioItems()
-//        RadioGroupDialog(this, items) {
-//            toast(R.string.importing)
-//            ensureBackgroundThread {
-//                val holidays = getString(R.string.holidays)
-//                var eventTypeId = eventsHelper.getEventTypeIdWithTitle(holidays)
-//                if (eventTypeId == -1L) {
-//                    val eventType = EventType(null, holidays, resources.getColor(R.color.default_holidays_color))
-//                    eventTypeId = eventsHelper.insertOrUpdateEventTypeSync(eventType)
-//                }
-//
-//                val result = IcsImporter(this).importEvents(it as String, eventTypeId, 0, false)
-//                handleParseResult(result)
-//                if (result != ImportResult.IMPORT_FAIL) {
-//                    runOnUiThread {
-//                        updateViewPager()
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    private fun tryAddBirthdays() {
-//        handlePermission(PERMISSION_READ_CONTACTS) {
-//            if (it) {
-//                SetRemindersDialog(this) {
-//                    val reminders = it
-//                    val privateCursor = getMyContactsCursor().loadInBackground()
-//
-//                    ensureBackgroundThread {
-//                        val privateContacts = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
-//                        addPrivateEvents(true, privateContacts, reminders) { eventsFound, eventsAdded ->
-//                            addContactEvents(true, reminders, eventsFound, eventsAdded) {
-//                                when {
-//                                    it > 0 -> {
-//                                        toast(R.string.birthdays_added)
-//                                        updateViewPager()
-//                                    }
-//                                    it == -1 -> toast(R.string.no_new_birthdays)
-//                                    else -> toast(R.string.no_birthdays)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            } else {
-//                toast(R.string.no_contacts_permission)
-//            }
-//        }
-//    }
-
-//    private fun tryAddAnniversaries() {
-//        handlePermission(PERMISSION_READ_CONTACTS) {
-//            if (it) {
-//                SetRemindersDialog(this) {
-//                    val reminders = it
-//                    val privateCursor = getMyContactsCursor().loadInBackground()
-//
-//                    ensureBackgroundThread {
-//                        val privateContacts = MyContactsContentProvider.getSimpleContacts(this, privateCursor)
-//                        addPrivateEvents(false, privateContacts, reminders) { eventsFound, eventsAdded ->
-//                            addContactEvents(false, reminders, eventsFound, eventsAdded) {
-//                                when {
-//                                    it > 0 -> {
-//                                        toast(R.string.anniversaries_added)
-//                                        updateViewPager()
-//                                    }
-//                                    it == -1 -> toast(R.string.no_new_anniversaries)
-//                                    else -> toast(R.string.no_anniversaries)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            } else {
-//                toast(R.string.no_contacts_permission)
-//            }
-//        }
-//    }
-
-//    private fun handleParseResult(result: ImportResult) {
-//        toast(when (result) {
-//            ImportResult.IMPORT_NOTHING_NEW -> R.string.no_new_items
-//            ImportResult.IMPORT_OK -> R.string.holidays_imported_successfully
-//            ImportResult.IMPORT_PARTIAL -> R.string.importing_some_holidays_failed
-//            else -> R.string.importing_holidays_failed
-//        }, Toast.LENGTH_LONG)
-//    }
-
-//    private fun addContactEvents(birthdays: Boolean, reminders: ArrayList<Int>, initEventsFound: Int, initEventsAdded: Int, callback: (Int) -> Unit) {
-//        var eventsFound = initEventsFound
-//        var eventsAdded = initEventsAdded
-//        val uri = Data.CONTENT_URI
-//        val projection = arrayOf(Contacts.DISPLAY_NAME,
-//            CommonDataKinds.Event.CONTACT_ID,
-//            CommonDataKinds.Event.CONTACT_LAST_UPDATED_TIMESTAMP,
-//            CommonDataKinds.Event.START_DATE)
-//
-//        val selection = "${Data.MIMETYPE} = ? AND ${CommonDataKinds.Event.TYPE} = ?"
-//        val type = if (birthdays) CommonDataKinds.Event.TYPE_BIRTHDAY else CommonDataKinds.Event.TYPE_ANNIVERSARY
-//        val selectionArgs = arrayOf(CommonDataKinds.Event.CONTENT_ITEM_TYPE, type.toString())
-//
-//        val dateFormats = getDateFormats()
-//        val existingEvents = if (birthdays) eventsDB.getBirthdays() else eventsDB.getAnniversaries()
-//        val importIDs = HashMap<String, Long>()
-//        existingEvents.forEach {
-//            importIDs[it.importId] = it.startTS
-//        }
-//
-//        val eventTypeId = if (birthdays) getBirthdaysEventTypeId() else getAnniversariesEventTypeId()
-//        val source = if (birthdays) SOURCE_CONTACT_BIRTHDAY else SOURCE_CONTACT_ANNIVERSARY
-//
-//        queryCursor(uri, projection, selection, selectionArgs, showErrors = true) { cursor ->
-//            val contactId = cursor.getIntValue(CommonDataKinds.Event.CONTACT_ID).toString()
-//            val name = cursor.getStringValue(Contacts.DISPLAY_NAME)
-//            val startDate = cursor.getStringValue(CommonDataKinds.Event.START_DATE)
-//
-//            for (format in dateFormats) {
-//                try {
-//                    val formatter = SimpleDateFormat(format, Locale.getDefault())
-//                    val date = formatter.parse(startDate)
-//                    if (date.year < 70) {
-//                        date.year = 70
-//                    }
-//
-//                    val timestamp = date.time / 1000L
-//                    val lastUpdated = cursor.getLongValue(CommonDataKinds.Event.CONTACT_LAST_UPDATED_TIMESTAMP)
-//                    val event = Event(null, timestamp, timestamp, name, reminder1Minutes = reminders[0], reminder2Minutes = reminders[1],
-//                        reminder3Minutes = reminders[2], importId = contactId, timeZone = DateTimeZone.getDefault().id, flags = FLAG_ALL_DAY,
-//                        repeatInterval = YEAR, repeatRule = REPEAT_SAME_DAY, eventType = eventTypeId, source = source, lastUpdated = lastUpdated)
-//
-//                    val importIDsToDelete = ArrayList<String>()
-//                    for ((key, value) in importIDs) {
-//                        if (key == contactId && value != timestamp) {
-//                            val deleted = eventsDB.deleteBirthdayAnniversary(source, key)
-//                            if (deleted == 1) {
-//                                importIDsToDelete.add(key)
-//                            }
-//                        }
-//                    }
-//
-//                    importIDsToDelete.forEach {
-//                        importIDs.remove(it)
-//                    }
-//
-//                    eventsFound++
-//                    if (!importIDs.containsKey(contactId)) {
-//                        eventsHelper.insertEvent(event, false, false) {
-//                            eventsAdded++
-//                        }
-//                    }
-//                    break
-//                } catch (e: Exception) {
-//                }
-//            }
-//        }
-//
-//        runOnUiThread {
-//            callback(if (eventsAdded == 0 && eventsFound > 0) -1 else eventsAdded)
-//        }
-//    }
-
-//    private fun addPrivateEvents(birthdays: Boolean, contacts: ArrayList<SimpleContact>, reminders: ArrayList<Int>, callback: (eventsFound: Int, eventsAdded: Int) -> Unit) {
-//        var eventsAdded = 0
-//        var eventsFound = 0
-//        if (contacts.isEmpty()) {
-//            callback(0, 0)
-//            return
-//        }
-//
-//        try {
-//            val eventTypeId = if (birthdays) getBirthdaysEventTypeId() else getAnniversariesEventTypeId()
-//            val source = if (birthdays) SOURCE_CONTACT_BIRTHDAY else SOURCE_CONTACT_ANNIVERSARY
-//
-//            val existingEvents = if (birthdays) eventsDB.getBirthdays() else eventsDB.getAnniversaries()
-//            val importIDs = HashMap<String, Long>()
-//            existingEvents.forEach {
-//                importIDs[it.importId] = it.startTS
-//            }
-//
-//            contacts.forEach { contact ->
-//                val events = if (birthdays) contact.birthdays else contact.anniversaries
-//                events.forEach { birthdayAnniversary ->
-//                    // private contacts are created in Simple Contacts Pro, so we can guarantee that they exist only in these 2 formats
-//                    val format = if (birthdayAnniversary.startsWith("--")) {
-//                        "--MM-dd"
-//                    } else {
-//                        "yyyy-MM-dd"
-//                    }
-//
-//                    val formatter = SimpleDateFormat(format, Locale.getDefault())
-//                    val date = formatter.parse(birthdayAnniversary)
-//                    if (date.year < 70) {
-//                        date.year = 70
-//                    }
-//
-//                    val timestamp = date.time / 1000L
-//                    val lastUpdated = System.currentTimeMillis()
-//                    val event = Event(null, timestamp, timestamp, contact.name, reminder1Minutes = reminders[0], reminder2Minutes = reminders[1],
-//                        reminder3Minutes = reminders[2], importId = contact.contactId.toString(), timeZone = DateTimeZone.getDefault().id, flags = FLAG_ALL_DAY,
-//                        repeatInterval = YEAR, repeatRule = REPEAT_SAME_DAY, eventType = eventTypeId, source = source, lastUpdated = lastUpdated)
-//
-//                    val importIDsToDelete = ArrayList<String>()
-//                    for ((key, value) in importIDs) {
-//                        if (key == contact.contactId.toString() && value != timestamp) {
-//                            val deleted = eventsDB.deleteBirthdayAnniversary(source, key)
-//                            if (deleted == 1) {
-//                                importIDsToDelete.add(key)
-//                            }
-//                        }
-//                    }
-//
-//                    importIDsToDelete.forEach {
-//                        importIDs.remove(it)
-//                    }
-//
-//                    eventsFound++
-//                    if (!importIDs.containsKey(contact.contactId.toString())) {
-//                        eventsHelper.insertEvent(event, false, false) {
-//                            eventsAdded++
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (e: Exception) {
-//            showErrorToast(e)
-//        }
-//
-//        callback(eventsFound, eventsAdded)
-//    }
-//
-//    private fun getBirthdaysEventTypeId(): Long {
-//        val birthdays = getString(R.string.birthdays)
-//        var eventTypeId = eventsHelper.getEventTypeIdWithTitle(birthdays)
-//        if (eventTypeId == -1L) {
-//            val eventType = EventType(null, birthdays, resources.getColor(R.color.default_birthdays_color))
-//            eventTypeId = eventsHelper.insertOrUpdateEventTypeSync(eventType)
-//        }
-//        return eventTypeId
-//    }
-//
-//    private fun getAnniversariesEventTypeId(): Long {
-//        val anniversaries = getString(R.string.anniversaries)
-//        var eventTypeId = eventsHelper.getEventTypeIdWithTitle(anniversaries)
-//        if (eventTypeId == -1L) {
-//            val eventType = EventType(null, anniversaries, resources.getColor(R.color.default_anniversaries_color))
-//            eventTypeId = eventsHelper.insertOrUpdateEventTypeSync(eventType)
-//        }
-//        return eventTypeId
-//    }
-
     private fun updateView(view: Int) {
         calendar_fab.beVisibleIf(view != YEARLY_VIEW && view != WEEKLY_VIEW)
         config.storedView = view
@@ -825,120 +562,11 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         }
     }
 
-//    private fun tryImportEvents() {
-//        if (isQPlus()) {
-//            Intent(Intent.ACTION_GET_CONTENT).apply {
-//                addCategory(Intent.CATEGORY_OPENABLE)
-//                type = "text/calendar"
-//                startActivityForResult(this, PICK_IMPORT_SOURCE_INTENT)
-//            }
-//        } else {
-//            handlePermission(PERMISSION_READ_STORAGE) {
-//                if (it) {
-//                    importEvents()
-//                }
-//            }
-//        }
-//    }
-
-//    private fun importEvents() {
-//        FilePickerDialog(this) {
-//            showImportEventsDialog(it)
-//        }
-//    }
-//
-//    private fun tryImportEventsFromFile(uri: Uri) {
-//        when {
-//            uri.scheme == "file" -> showImportEventsDialog(uri.path!!)
-//            uri.scheme == "content" -> {
-//                val tempFile = getTempFile()
-//                if (tempFile == null) {
-//                    toast(R.string.unknown_error_occurred)
-//                    return
-//                }
-//
-//                val inputStream = contentResolver.openInputStream(uri)
-//                val out = FileOutputStream(tempFile)
-//                inputStream!!.copyTo(out)
-//                showImportEventsDialog(tempFile.absolutePath)
-//            }
-//            else -> toast(R.string.invalid_file_format)
-//        }
-//    }
-
-//    private fun showImportEventsDialog(path: String) {
-//        ImportEventsDialog(this, path) {
-//            if (it) {
-//                runOnUiThread {
-//                    updateViewPager()
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun tryExportEvents() {
-//        if (isQPlus()) {
-//            ExportEventsDialog(this, config.lastExportPath, true) { file, eventTypes ->
-//                eventTypesToExport = eventTypes
-//
-//                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-//                    type = "text/calendar"
-//                    putExtra(Intent.EXTRA_TITLE, file.name)
-//                    addCategory(Intent.CATEGORY_OPENABLE)
-//
-//                    startActivityForResult(this, PICK_EXPORT_FILE_INTENT)
-//                }
-//            }
-//        } else {
-//            handlePermission(PERMISSION_WRITE_STORAGE) {
-//                if (it) {
-//                    ExportEventsDialog(this, config.lastExportPath, false) { file, eventTypes ->
-//                        getFileOutputStream(file.toFileDirItem(this), true) {
-//                            exportEventsTo(eventTypes, it)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    private fun exportEventsTo(eventTypes: ArrayList<Long>, outputStream: OutputStream?) {
-//        ensureBackgroundThread {
-//            val events = eventsHelper.getEventsToExport(eventTypes)
-//            if (events.isEmpty()) {
-//                toast(R.string.no_entries_for_exporting)
-//            } else {
-//                IcsExporter().exportEvents(this, outputStream, events, true) {
-//                    toast(when (it) {
-//                        ExportResult.EXPORT_OK -> R.string.exporting_successful
-//                        ExportResult.EXPORT_PARTIAL -> R.string.exporting_some_entries_failed
-//                        else -> R.string.exporting_failed
-//                    })
-//                }
-//            }
-//        }
-//    }
 
     private fun launchSettings() {
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
-//    private fun launchAbout() {
-//        val licenses = LICENSE_JODA
-//
-//        val faqItems = arrayListOf(
-//            FAQItem(R.string.faq_1_title_commons, R.string.faq_1_text_commons),
-//            FAQItem(R.string.faq_4_title_commons, R.string.faq_4_text_commons),
-//            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-//            FAQItem(R.string.faq_2_title, R.string.faq_2_text),
-//            FAQItem(R.string.faq_3_title, R.string.faq_3_text),
-//            FAQItem(R.string.faq_4_title, R.string.faq_4_text),
-//            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-//            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
-//            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons))
-//
-//        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
-//    }
 
     private fun searchQueryChanged(text: String) {
         mLatestSearchQuery = text
