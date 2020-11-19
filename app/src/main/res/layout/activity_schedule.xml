@@ -19,7 +19,7 @@
         android:textColor="#000000"
         android:textColorHint="@color/hint_black"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/emptyMeet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.329"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/emptyMeet"
         android:layout_width="365dp"
         android:layout_height="343dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/emptyMeet"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -96,12 +96,12 @@
         app:layout_constraintHorizontal_bias="0.161"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meeting_title"
-        app:layout_constraintVertical_bias="0.011" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <EditText
         android:id="@+id/startTime"
-        android:layout_width="77dp"
-        android:layout_height="45dp"
+        android:layout_width="58dp"
+        android:layout_height="41dp"
         android:ems="10"
         android:hint="start"
         android:inputType="time"
@@ -113,7 +113,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/meeting_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.013" />
 
     <TextView
         android:id="@+id/textView3"
@@ -125,15 +125,15 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endTime"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toEndOf="@+id/startTime"
         app:layout_constraintTop_toBottomOf="@+id/meeting_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.004" />
 
     <EditText
         android:id="@+id/endTime"
-        android:layout_width="77dp"
-        android:layout_height="45dp"
+        android:layout_width="53dp"
+        android:layout_height="41dp"
         android:ems="10"
         android:hint="end"
         android:inputType="time"
@@ -142,13 +142,13 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meeting_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.013" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
+        android:id="@+id/notesText"
         android:layout_width="299dp"
         android:layout_height="43dp"
         android:layout_marginTop="10dp"
@@ -166,7 +166,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/sendInvite"
         android:layout_width="297dp"
         android:layout_height="38dp"
         android:layout_marginTop="13dp"
@@ -177,7 +177,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6"
+        app:layout_constraintTop_toBottomOf="@+id/notesText"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

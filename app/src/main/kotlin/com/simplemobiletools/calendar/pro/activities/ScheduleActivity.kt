@@ -1,32 +1,30 @@
 package com.simplemobiletools.calendar.pro.activities
 
-import androidx.appcompat.app.AppCompatActivity
-
-import android.annotation.SuppressLint
-import android.app.SearchManager
-import android.content.Context
-import android.content.Intent
-import android.content.pm.ShortcutInfo
-import android.content.pm.ShortcutManager
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Icon
-import android.graphics.drawable.LayerDrawable
+import android.R.attr.bottom
+import android.R.attr.left
+import android.R.attr.right
+import android.R.attr.top
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.simplemobiletools.calendar.pro.BuildConfig
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import android.widget.ImageView
+import android.widget.TextView
 import com.simplemobiletools.calendar.pro.R
-import com.simplemobiletools.calendar.pro.extensions.config
 
 
 class ScheduleActivity : SimpleActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
-    }
+        val done: TextView = findViewById(R.id.done_meet)
+        done.setOnClickListener {
+            val image = findViewById<View>(R.id.emptyMeet) as ImageView
+            image.setImageResource(R.drawable.meet_group)
 
+        }
+
+
+
+    }
 }
