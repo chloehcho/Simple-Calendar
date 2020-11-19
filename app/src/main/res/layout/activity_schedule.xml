@@ -9,19 +9,22 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFAFAFAF"
+        android:layout_width="238dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/hint_black"
+        android:ems="20"
         android:hint="eg. Group Name, Email"
         android:inputType="textPersonName"
-        android:textColor="@color/hint_black"
-        android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintHorizontal_bias="0.329"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/done_meet"
@@ -29,36 +32,152 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:textColor="#000000"
-        android:textSize="24dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintHorizontal_bias="0.156"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintVertical_bias="0.095" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="240dp"
+        android:layout_height="32dp"
         android:text="Input group name or email"
         android:textColor="#000000"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.331"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="327dp"
-        android:layout_height="545dp"
+        android:layout_width="365dp"
+        android:layout_height="343dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/meet_group" />
+        app:layout_constraintTop_toBottomOf="@+id/done_meet"
+        app:layout_constraintVertical_bias="0.114"
+        app:srcCompat="@drawable/meet_start" />
+
+    <EditText
+        android:id="@+id/meeting_title"
+        android:layout_width="298dp"
+        android:layout_height="42dp"
+        android:backgroundTint="@color/hint_black"
+        android:ems="20"
+        android:hint="Meeting Title"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/hint_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="58dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="4dp"
+        android:text="From:"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_title"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <EditText
+        android:id="@+id/startTime"
+        android:layout_width="77dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="start"
+        android:inputType="time"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="27dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="6dp"
+        android:text="to"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endTime"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/startTime"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/endTime"
+        android:layout_width="77dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="end"
+        android:inputType="time"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName6"
+        android:layout_width="299dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Notes"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="@color/hint_black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="297dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="13dp"
+        android:background="#7EC636"
+        android:text="SEND INVITE"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
