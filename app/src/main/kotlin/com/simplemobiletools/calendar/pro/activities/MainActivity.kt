@@ -74,6 +74,12 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             startActivity(schedPage)
         }
 
+        val messButton = findViewById<FloatingActionButton>(R.id.message_fab)
+        messButton.setOnClickListener{
+            val messPage = Intent(this, MessageActivity::class.java)
+            startActivity(messPage)
+        }
+
         checkWhatsNewDialog()
         calendar_fab.beVisibleIf(config.storedView != WEEKLY_VIEW)
 //        config.storedView != YEARLY_VIEW &&

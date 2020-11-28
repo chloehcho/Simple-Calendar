@@ -49,7 +49,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="86dp"
         android:contentDescription="message"
-        android:src="@drawable/ic_email_vector"
+        android:src="@drawable/ic_chat"
         app:backgroundTint="#7EC636"
         app:rippleColor="@color/pressed_item_foreground" />
 

@@ -164,6 +164,10 @@
             android:name=".activities.ScheduleActivity"
             android:label="Schedule Meeting"
             android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.MessageActivity"
+            android:label="Messages"
+            android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name=".activities.ManageEventTypesActivity"

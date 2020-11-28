@@ -11,7 +11,7 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="238dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/hint_black"
         android:ems="20"
         android:hint="eg. Group Name, Email"
@@ -19,26 +19,25 @@
         android:textColor="#000000"
         android:textColorHint="@color/hint_black"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/emptyMeet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.329"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
         android:id="@+id/done_meet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="81dp"
+        android:layout_height="39dp"
+        android:background="#7EC636"
         android:text="Done"
-        android:textColor="#000000"
-        android:textSize="22dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.053" />
 
     <TextView
         android:id="@+id/textView2"
@@ -54,34 +53,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/emptyMeet"
-        android:layout_width="365dp"
-        android:layout_height="343dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/done_meet"
-        app:layout_constraintVertical_bias="0.114"
-        app:srcCompat="@drawable/meet_start" />
-
     <EditText
         android:id="@+id/meeting_title"
         android:layout_width="298dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="156dp"
         android:backgroundTint="@color/hint_black"
         android:ems="20"
         android:hint="Meeting Title"
         android:inputType="textPersonName"
+        android:textColor="#000000"
         android:textColorHint="@color/hint_black"
         android:textSize="20dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emptyMeet"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -89,6 +77,7 @@
         android:layout_height="31dp"
         android:layout_marginTop="4dp"
         android:text="From:"
+        android:visibility = "invisible"
         android:textColor="#000000"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -104,6 +93,7 @@
         android:layout_height="41dp"
         android:ems="10"
         android:hint="start"
+        android:visibility = "invisible"
         android:inputType="time"
         android:textColor="#000000"
         android:textColorHint="@color/hint_black"
@@ -123,6 +113,7 @@
         android:text="to"
         android:textColor="#000000"
         android:textSize="20dp"
+        android:visibility = "invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/endTime"
         app:layout_constraintHorizontal_bias="0.368"
@@ -140,6 +131,7 @@
         android:textColor="#000000"
         android:textColorHint="@color/hint_black"
         android:textSize="20dp"
+        android:visibility = "invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.636"
@@ -158,6 +150,7 @@
         android:textColor="#000000"
         android:textColorHint="@color/hint_black"
         android:textSize="20dp"
+        android:visibility = "invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.574"
@@ -170,9 +163,9 @@
         android:layout_width="297dp"
         android:layout_height="38dp"
         android:layout_marginTop="13dp"
-        android:background="#7EC636"
         android:text="SEND INVITE"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
+        android:visibility = "invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.568"
