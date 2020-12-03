@@ -1,28 +1,25 @@
 package com.simplemobiletools.calendar.pro.activities
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import com.simplemobiletools.calendar.pro.R
 import kotlinx.android.synthetic.main.activity_schedule.*
 
 
 class ScheduleActivity : SimpleActivity() {
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
-//        val done: TextView = findViewById(R.id.done_meet)
-//        done.setOnClickListener {
-//            val image = findViewById<View>(R.id.emptyMeet) as ImageView
-//            image.setImageResource(R.drawable.meet_group)
-//
-//        }
+
+        textView = findViewById(R.id.sendInvite)
+        textView.setOnClickListener { showAlertDialog() }
 
         val buttonA: Button = findViewById<View>(R.id.done_meet) as Button
         val buttonB: Button = findViewById<View>(R.id.sendInvite) as Button
@@ -33,6 +30,8 @@ class ScheduleActivity : SimpleActivity() {
         val endTime: EditText = findViewById<EditText>(R.id.endTime)
         val notesText: EditText = findViewById<EditText>(R.id.notesText)
         val groupName: EditText = findViewById<EditText>(R.id.editTextTextPersonName2)
+        val meetEnd: ImageView = findViewById<ImageView>(R.id.meet_end)
+        meetEnd.visibility = View.INVISIBLE
 
         groupName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -40,6 +39,7 @@ class ScheduleActivity : SimpleActivity() {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 buttonA.isEnabled = false
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -53,6 +53,10 @@ class ScheduleActivity : SimpleActivity() {
                     endTime.visibility = View.INVISIBLE
                     notesText.visibility = View.INVISIBLE
                     buttonB.visibility = View.INVISIBLE
+                    meetEnd.visibility = View.INVISIBLE
+
+
+
                 }else{
                     buttonA.isEnabled = true
                     done_meet.setOnClickListener {
@@ -65,13 +69,30 @@ class ScheduleActivity : SimpleActivity() {
                         endTime.visibility = View.VISIBLE
                         notesText.visibility = View.VISIBLE
                         buttonB.visibility = View.VISIBLE
+                        meetEnd.visibility = View.VISIBLE
+
                     }
                 }
 
             }
         })
 
-
+    }
+    private fun showAlertDialog() {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+        alertDialog.setTitle("Confirm Meeting")
+        alertDialog.setMessage("Would you like to send invite?")
+        alertDialog.setPositiveButton(
+                "Confirm"
+        ) { _, _ ->
+            Toast.makeText(this, "Meeting invite sent!", Toast.LENGTH_LONG).show()
+        }
+        alertDialog.setNegativeButton(
+                "Cancel"
+        ) { _, _ -> }
+        val alert: AlertDialog = alertDialog.create()
+        alert.setCanceledOnTouchOutside(false)
+        alert.show()
     }
 }
 

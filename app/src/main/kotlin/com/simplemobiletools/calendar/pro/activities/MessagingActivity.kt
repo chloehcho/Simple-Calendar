@@ -15,17 +15,13 @@ import com.simplemobiletools.calendar.pro.R
 import kotlinx.android.synthetic.main.activity_message.*
 
 
-class MessageActivity : SimpleActivity() {
+class MessagingActivity : SimpleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_message)
-        val messButton = findViewById<ImageView>(R.id.profile)
-        messButton.setOnClickListener{
-            val messPage = Intent(this, MessagingActivity::class.java)
-            startActivity(messPage)
-        }
+        setContentView(R.layout.activity_messaging)
     }
+
 
 }
 

@@ -168,6 +168,10 @@
             android:name=".activities.MessageActivity"
             android:label="Messages"
             android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.MessagingActivity"
+            android:label="Messaging"
+            android:parentActivityName=".activities.MessageActivity" />
 
         <activity
             android:name=".activities.ManageEventTypesActivity"
