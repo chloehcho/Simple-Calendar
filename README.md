@@ -2,8 +2,9 @@
 Uses Simple Calendar's codes.
 
 Just a couple things to set up the app since we couldn't change the source code so in order to match the prototype we had in mind.
-After downloading the application go to settings and click on Customize colors then change the Background color to #FFFFFF then change the Primary
-color to green (10 color from left) it should say #689F38 finally click ok. Then exit to the main page.
+After downloading the application go to settings and click on Customize colors then change the Background color to #FFFFFF after change
+the Text color to #000000 then change the Primary color to green (10 color from left) it should say #689F38 finally click ok.
+Then exit to the main page.
 
 This app is only being used for class and it is not being used for any other purposes.
 
