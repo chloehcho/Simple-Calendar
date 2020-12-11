@@ -1,6 +1,7 @@
 package com.simplemobiletools.calendar.pro.activities
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -86,6 +87,8 @@ class ScheduleActivity : SimpleActivity() {
                 "Confirm"
         ) { _, _ ->
             Toast.makeText(this, "Meeting invite sent!", Toast.LENGTH_LONG).show()
+            val messPage = Intent(this, MainActivity::class.java)
+            startActivity(messPage)
         }
         alertDialog.setNegativeButton(
                 "Cancel"
